@@ -1,9 +1,9 @@
 /*
 	Copyright (c) 1999-2008, Phillip Stanley-Marbell (author)
- 
+
 	All rights reserved.
 
-	Redistribution and use in source and binary forms, with or without 
+	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
 
@@ -18,20 +18,20 @@
 
 	*	Neither the name of the author nor the names of its
 		contributors may be used to endorse or promote products
-		derived from this software without specific prior written 
+		derived from this software without specific prior written
 		permission.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
 	COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 	INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
-	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -153,7 +153,7 @@ m_allocengine(uvlong seed)
 	/*	Initialize random number generators	*/
 	mprint(tmp, NULL, siminfo,
 			"Initialized random number generator with seed %d...\n",
-			tmp->randseed); 
+			tmp->randseed);
 
 	/*		Prime the decode caches		*/
 	for (i = 0; i < (1 << 16); i++)
@@ -191,7 +191,7 @@ main(int nargs, char *args[])
 //	State		*S;
 	int		argn;
 
-	
+
 	nengines = 0;
 	E = m_allocengine(-1);
 	if (E == nil)
@@ -201,7 +201,7 @@ main(int nargs, char *args[])
 	}
 
 	E->verbose = 1;
-	marchinit();	
+	marchinit();
 	m_version(E);
 	m_newnode(E, "superH", 0, 0, 0, nil, 0, 0.0);
 //	S = E->sp[0];
@@ -326,7 +326,7 @@ sched_step(Engine *E)
 
 	/*							*/
 	/*	Battery and DC-DC converter. Must sample often 	*/
-	/*	enough to catch short bursts of current draw.	*/		
+	/*	enough to catch short bursts of current draw.	*/
 	/*							*/
 	/*	We are using the current from the previous	*/
 	/*	cycle (or E->quantum # of cycles), which will	*/
@@ -402,7 +402,7 @@ sched_step(Engine *E)
 		{
 			E->cn = E->randsched[i];
 		}
-			
+
 		S = E->sp[E->cn];
 		S->energyinfo.current_draw = 0;
 
@@ -547,7 +547,7 @@ load_srec(Engine *E, State *S, char *filename)
 			"Could not allocate memory for filebuf in main.c");
 		return;
 	}
-	
+
 	if ((n = mread(fd, filebuf, filesize)) != filesize)
 	{
 		mprint(E, S, nodeinfo,
@@ -555,7 +555,7 @@ load_srec(Engine *E, State *S, char *filename)
 			filesize, filename, n);
 		return;
 	}
-	
+
 	pcset = 0;
 	fpos = 0;
 	for (;;)
@@ -613,7 +613,7 @@ load_srec(Engine *E, State *S, char *filename)
 				/*	Data record with 32bit addr	*/
 				int	i;
 				char	*tptr, tmp[8+1];
-				
+
 				memmove(&tmp[0], &line[2], 2);
 				tmp[2] = '\0';
 				rec_length = strtoul(&tmp[0], nil, 16);
@@ -680,7 +680,7 @@ load_srec(Engine *E, State *S, char *filename)
 
 			case 6:
 			{
-				/*		Unused 			*/	
+				/*		Unused 			*/
 				break;
 			}
 
@@ -701,13 +701,13 @@ load_srec(Engine *E, State *S, char *filename)
 				/*	End record for S1 records	*/
 				break;
 			}
-	
+
 			default:
 			{
 				mprint(E, S, nodeinfo, "Seen unknown SRECORD type.\n");
 				mprint(E, S, nodeinfo, "Aborting SRECL.\n");
 				goto done;
-			}	
+			}
 		}
 	}
 done:
@@ -797,7 +797,7 @@ savemem(Engine *E, State *S, ulong start_addr, ulong end_addr, char *filename)
 
 		return;
         }
-	
+
 	for (i = start_addr; i <= end_addr; i++)
 	{
 		mwrite(outfd, (char *)&S->MEM[i-S->MEMBASE], 1);
@@ -820,7 +820,7 @@ sfatal(Engine *E, State *S, char *msg)
 	S->fatalaction(E, S);
 	S->dumpregs(E, S);
 	S->dumpsysregs(E, S);
-	
+
 	S->runnable = 0;
 	mprint(E, NULL, siminfo, "Stopping execution on node %d and pausing simulation...\n\n",
 		S->NODE_ID);
@@ -921,16 +921,16 @@ man(Engine *E, char *cmd)
 				n++;
 			}
 		}
-		
+
 		if (n % 3)
 		{
 			mprint(E, NULL, siminfo, "\n");
 		}
 		mprint(E, NULL, siminfo, "\nType \"man <command>\" for help on a particular command.\n");
-	
+
 		return;
 	}
-	
+
 	for (i = 0; i < nHelpstrs; i++)
 	{
 		if (!strcmp(cmd, Helpstrs[i].cmd))
@@ -953,7 +953,7 @@ man(Engine *E, char *cmd)
 
 				if (j < tmplen) mprint(E, NULL, siminfo, "\\\n\t\t\t");
 			}
-	
+
 			mprint(E, NULL, siminfo, "\n\n");
 
 			tmplen = strlen(Helpstrs[i].args);
@@ -972,7 +972,7 @@ man(Engine *E, char *cmd)
 
 			return;
 		}
-	}	
+	}
 	help(E);
 
 	return;
@@ -1046,7 +1046,7 @@ m_version(Engine *E)
 	mprint(E, NULL, siminfo,
 		"This software is provided with ");
 	mprint(E, NULL, siminfo,
-		"ABSOLUTELY NO WARRANTY. Read LICENSE.txt\n\n");		
+		"ABSOLUTELY NO WARRANTY. Read LICENSE.txt\n\n");
 
 	return;
 }
@@ -1063,7 +1063,7 @@ m_newnode(Engine *E, char *type, double x, double y, double z, char *trajfilenam
 
 		return;
 	}
-		
+
 	/*  newnode xloc yloc zloc orbit velocity  */
 	if ((strlen(type) == 0) || !strncmp(type, "superH", strlen("superH")))
 	{
@@ -1085,13 +1085,13 @@ m_newnode(Engine *E, char *type, double x, double y, double z, char *trajfilenam
 	{
 		readnodetrajectory(E, S, trajfilename, looptrajectory, trajectoryrate);
 	}
-	
+
 	return;
 }
 
 static void
 readnodetrajectory(Engine *E, State *S, char*trajfilename, int looptrajectory, int trajectoryrate)
-{	
+{
 	enum		{MAX_LINELEN = 1024};
 	char		c, buf[MAX_LINELEN], *ep = &c;
 	double		val;
@@ -1105,7 +1105,7 @@ readnodetrajectory(Engine *E, State *S, char*trajfilename, int looptrajectory, i
 		return;
 	}
 	strcpy(S->trajfilename, trajfilename);
-	
+
 
 	tmpfd = mopen(S->trajfilename, M_OREAD);
 	linesread = 0;
@@ -1169,13 +1169,13 @@ readnodetrajectory(Engine *E, State *S, char*trajfilename, int looptrajectory, i
 
 			mprint(E, NULL, siminfo,
 				"[%d] records in trajectory file\n", (int)val);
-		
+
 		}
 		else
 		{
 			int	i = 0;
 			char 	*p;
-						
+
 
 			for ((p = strtok(buf, " \n\t")); p; (p = strtok(NULL, " \n\t")), i++)
 			{
@@ -1255,7 +1255,7 @@ readnodetrajectory(Engine *E, State *S, char*trajfilename, int looptrajectory, i
 				}
            		}
 			S->path.nlocations++;
-		
+
 		}
 		linesread++;
 	}
@@ -1320,7 +1320,7 @@ m_powertotal(Engine *E)
 	int	i;
 	double	total_power=0.0, total_energy=0.0;
 
-				
+
 	for (i = 0; i < E->nnodes; i++)
 	{
 		total_power += E->sp[i]->energyinfo.CPUEtot;
@@ -1541,7 +1541,7 @@ do_numaregion(Engine *E, State *S, char *name, ulong start, ulong end, long xlrl
 	long		lwlat = xlwlat, lrlat = xlrlat;
 	long		rwlat = xrwlat, rrlat = xrrlat;
 
-	
+
 	if (onstack)
 	{
 		X = S->Nstack;
@@ -1782,7 +1782,7 @@ m_numasetmapid(Engine *E, int whichmap, int cpuid)
 	E->sp[cpuid]->sleep = 0;
 	E->sp[cpuid]->superH->P.MA.valid = 1;
 	//Any local table as good as the other for size info. We use info from node0
-	E->sp[cpuid]->superH->P.MA.cycles = 
+	E->sp[cpuid]->superH->P.MA.cycles =
 		E->sp[0]->N->regions[whichmap]->endaddr -
 		E->sp[0]->N->regions[whichmap]->startaddr;
 
@@ -1816,11 +1816,11 @@ m_delvaluetrace(Engine *E, State *S, char *tag, ulong addr, int size, int onstac
 			/*	Dump this value trace to disk before deleting it	*/
 			/*								*/
 			mlog(E, S, "\n%-20s %s\n", "Name:", S->Nstack->regions[i]->name);
-			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "pcstart:", 
+			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "pcstart:",
 				S->Nstack->regions[i]->pcstart);
-			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "frame offset:", 
+			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "frame offset:",
 				S->Nstack->regions[i]->frameoffset);
-			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "size:", 
+			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "size:",
 				S->Nstack->regions[i]->endaddr-S->Nstack->regions[i]->startaddr);
 			mlog(E, S, "%-20s %d\n", "Read accesses:", S->Nstack->regions[i]->nreads);
 			mlog(E, S, "%-20s %d\n\n", "Write accesses:", S->Nstack->regions[i]->nwrites);
@@ -1836,7 +1836,7 @@ m_delvaluetrace(Engine *E, State *S, char *tag, ulong addr, int size, int onstac
 			S->Nstack->regions[i] = S->Nstack->regions[S->Nstack->count];
 			S->Nstack->regions[S->Nstack->count] = NULL;
 
-			break;	
+			break;
 		}
 	}
 
@@ -1856,9 +1856,9 @@ m_delvaluetrace(Engine *E, State *S, char *tag, ulong addr, int size, int onstac
 			/*	Dump this value trace to disk before deleting it	*/
 			/*								*/
 			mlog(E, S, "\n%-20s %s\n", "Name:", S->N->regions[i]->name);
-			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "Start address:", 
+			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "Start address:",
 				S->N->regions[i]->startaddr);
-			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "End address:", 
+			mlog(E, S, "%-20s 0x" UHLONGFMT "\n", "End address:",
 				S->N->regions[i]->endaddr);
 			mlog(E, S, "%-20s %d\n", "Read accesses:", S->N->regions[i]->nreads);
 			mlog(E, S, "%-20s %d\n\n", "Write accesses:", S->N->regions[i]->nwrites);
@@ -1874,7 +1874,7 @@ m_delvaluetrace(Engine *E, State *S, char *tag, ulong addr, int size, int onstac
 			S->N->regions[i] = S->N->regions[S->N->count];
 			S->N->regions[S->N->count] = NULL;
 
-			break;	
+			break;
 		}
 	}
 
@@ -2046,7 +2046,7 @@ m_run(Engine *E, State *S, char *args)
 	int	argc, ARGVOFFSET = 65536, argstrlen, align;
 	char	**tptr, **argv, *simstr;
 	ulong	argvptroffset;
-				
+
 
 	argstrlen = strlen(args)+1;
 	if ((ARGVOFFSET + argstrlen) > S->MEMSIZE)
@@ -2120,7 +2120,7 @@ m_run(Engine *E, State *S, char *args)
 			break;
 		}
 	}
-			
+
 	if (S->machinetype == MACHINE_SUPERH)
 	{
 		S->superH->R[4] = argc;
@@ -2139,7 +2139,7 @@ m_run(Engine *E, State *S, char *args)
 		merror(E, "This machine does not know how to \"run\".");
 	}
 
-	return;	
+	return;
 }
 
 void
@@ -2202,7 +2202,7 @@ m_off(Engine *E, State *S)
 	mprint(E, NULL, siminfo, "Simulator Paused.\n\n");
 	mprint(E, NULL, siminfo, "User Time elapsed = %.6f seconds.\n",
 			((float)(S->ufinish - S->ustart)/1E6));
-		
+
 	if (E->quantum == 1)
 	{
 		mprint(E, NULL, siminfo, "Simulated CPU Time elapsed = %.6E seconds.\n",
@@ -2259,7 +2259,7 @@ m_dumpnode(Engine *E, int i, char *filename, int mode, char *tag, char *pre)
 		maxoccupancy = 0;
 	State	*X = E->sp[i];
 
-				
+
 	S = &tmp;
 	S->ufinish = musercputimeusecs();
 
@@ -2338,7 +2338,7 @@ m_dumpnode(Engine *E, int i, char *filename, int mode, char *tag, char *pre)
 		mlog(E, S, "%sNode%d\t\t\"dyncnt\"\t=\t" UVLONGFMT "\n",
 			pre, X->NODE_ID,
 			X->dyncnt);
-	
+
 	/* Abbreviate to reduce size of dist logs */
 	if (0)
 	{
@@ -2524,11 +2524,11 @@ m_dumpnode(Engine *E, int i, char *filename, int mode, char *tag, char *pre)
 			mlog(E, S, "%s\n%-20s %s\n", "Name:",
 				pre, X->Nstack->regions[j]->name);
 
-			mlog(E, S, "%s%-20s 0x" UHLONGFMT "\n", "pcstart:", 
+			mlog(E, S, "%s%-20s 0x" UHLONGFMT "\n", "pcstart:",
 				pre, X->Nstack->regions[j]->pcstart);
-			mlog(E, S, "%s%-20s 0x" UHLONGFMT "\n", "frame offset:", 
+			mlog(E, S, "%s%-20s 0x" UHLONGFMT "\n", "frame offset:",
 				pre, X->Nstack->regions[j]->frameoffset);
-			mlog(E, S, "%s%-20s 0x" UHLONGFMT "\n", "size:", 
+			mlog(E, S, "%s%-20s 0x" UHLONGFMT "\n", "size:",
 				pre, X->Nstack->regions[j]->endaddr - X->Nstack->regions[j]->startaddr);
 
 			mlog(E, S, "%s%-20s 0x" UHLONGFMT "\n", "Local Read latency:",
@@ -2663,13 +2663,13 @@ m_dumpall(Engine *E, char *filename, int mode, char *tag, char *pre)
 		mlog(E, S, "%s\tBATT%d\t\tMaximum Sampled Current Load (mA)\t=\t%E\n",
 				pre, E->batts[i].ID,
 				E->batts[i].maxIload*1000);
-                mlog(E, S, "%s\tBATT%d\t\tavgIload             %E\n", 
+                mlog(E, S, "%s\tBATT%d\t\tavgIload             %E\n",
 				pre, E->batts[i].ID,
                                 E->batts[i].avgIload);
-                mlog(E, S, "%s\tBATT%d\t\tnsamplesIload        %E\n", 
+                mlog(E, S, "%s\tBATT%d\t\tnsamplesIload        %E\n",
 				pre, E->batts[i].ID,
                                 E->batts[i].nsamplesIload);
-                mlog(E, S, "%s\tE->battperiodpsec="UVLONGFMT"\n", pre, E->battperiodpsec); 
+                mlog(E, S, "%s\tE->battperiodpsec="UVLONGFMT"\n", pre, E->battperiodpsec);
 		mlog(E, S, "%s\n", pre);
 	}
 	mlog(E, S, "%s} Tag %s.\n", pre, tag);
@@ -2751,7 +2751,7 @@ m_setbptglobaltime(Engine *E, Picosec t)
 
 void
 m_setbptcycles(Engine *E, State *S, uvlong n)
-{	
+{
 	int	idx;
 
 	if ((idx = getbptidx(E)) < 0)
@@ -2770,7 +2770,7 @@ m_setbptcycles(Engine *E, State *S, uvlong n)
 
 void
 m_setbptinstrs(Engine *E, State *S, uvlong n)
-{	
+{
 	int	idx;
 
 	if ((idx = getbptidx(E)) < 0)
@@ -2789,7 +2789,7 @@ m_setbptinstrs(Engine *E, State *S, uvlong n)
 
 void
 m_setbptsensorreading(Engine *E, State *S, int whichsensor, double val)
-{	
+{
 	int	idx;
 
 	if ((idx = getbptidx(E)) < 0)
@@ -2905,9 +2905,9 @@ m_setloc(Engine *E, State *S, double x, double y, double z)
 	S->xloc = x;
 	S->yloc = y;
 	S->zloc = z;
-	
+
 	m_locstats(E, S);
-                              
+
 	return;
 }
 

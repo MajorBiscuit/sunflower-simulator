@@ -1,9 +1,10 @@
 /*
-	Copyright (c) 1999-2008, Phillip Stanley-Marbell (author)
- 
+  Copyright (c) 1999-2008, Phillip Stanley-Marbell (author)
+	Copyright (c) 2018, Andreas Theodosiou and Kyriacos Bagdates (author)
+
 	All rights reserved.
 
-	Redistribution and use in source and binary forms, with or without 
+	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
 
@@ -18,20 +19,20 @@
 
 	*	Neither the name of the author nor the names of its
 		contributors may be used to endorse or promote products
-		derived from this software without specific prior written 
+		derived from this software without specific prior written
 		permission.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
 	COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 	INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
-	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -62,7 +63,7 @@
 
 /*	WIN32 compiler doesn't always know 'inline', and already has min/max */
 #ifdef	_WIN32_WINNT
-#	define	tuck	
+#	define	tuck
 #else
 #	define	tuck		inline
 #	define	max(x,y)	((x) > (y) ? (x) : (y))
@@ -131,9 +132,9 @@ enum
 
 enum
 {
-	MAX_SIMNODES			= 64,		
+	MAX_SIMNODES			= 64,
 	MAX_NODE_DIGITS			= 8,
-	MAX_RUN_ARGS			= 64,		
+	MAX_RUN_ARGS			= 64,
 	MAX_SREC_LINELEN		= 1024,
 	MAX_NAMELEN			= 128,
 	MAX_NUMA_REGIONS		= 8192,
@@ -152,7 +153,7 @@ enum
 	MAX_RVARENTRIES			= 128,
 	MAX_NUM_ENGINES			= 4,
 	MAX_BREAKPOINTS			= 32,
-	
+
 
 
 	/*	Keep sorted in order, so last entry is max	*/
@@ -179,6 +180,7 @@ typedef enum
 {
 	MACHINE_SUPERH,
 	MACHINE_MSP430,
+  MACHINE_ARM
 } Machinetype;
 
 enum
@@ -277,7 +279,7 @@ typedef struct
 	int		map_id;
 	ulong		map_offset;
 
-	
+
 	ulong		local_read_latency;
 	ulong		local_write_latency;
 	ulong		remote_read_latency;
@@ -493,12 +495,13 @@ struct State
 	/*								*/
 	SuperHState	*superH;
 	MSP430State	*msp430;
+  ARMState *arm;
 
 
 	Machinetype	machinetype;
 	Endianness	endian;
 
-	
+
 	uchar		*MEM;
 	int		mem_r_latency;
 	int		mem_w_latency;
@@ -539,10 +542,10 @@ struct State
 	double		VDD;
 	/*	The default low operating voltage. 	*/
 
-	double		LOWVDD;			
+	double		LOWVDD;
 	/*		Saved VDD. see pau.c		*/
 	double		SVDD;
-		
+
 	double		temperature;
 	double		voltscale_alpha;
 	double		voltscale_Vt;
@@ -574,7 +577,7 @@ struct State
 	Regtraces	*RT;
 
 
-	uvlong		ICLK;			
+	uvlong		ICLK;
 	uvlong		CLK;
 	uvlong		last_stepclks;
 	double		TIME;
@@ -582,7 +585,7 @@ struct State
 	uvlong		dyncnt;
 	uvlong		nfetched;
 
-	
+
 	InterruptQ	*intrQ;
 
 	ulong 		PC;
@@ -607,7 +610,7 @@ struct State
 	uvlong		nfaults;
 	uvlong		faultthreshold;
 	int		ENABLE_TOO_MANY_FAULTS;
-	SEEstate*	SEEmodeling;	
+	SEEstate*	SEEmodeling;
 
 	/*			Division off SIM_GLOBAL_CLOCK		*/
 	int		clock_modulus;
@@ -648,7 +651,7 @@ struct State
 	double		phi;
 	Path		path;
 
-	/*			Trajectory/headings input		*/		
+	/*			Trajectory/headings input		*/
 	char		*trajfilename;
 
 
@@ -709,7 +712,7 @@ struct State
 	void 		(*dumptlb)(Engine *, State *S);
 
 	void 		(*writebyte)(Engine *, State *S, ulong addr, ulong data);
-};	
+};
 
 typedef struct
 {
@@ -738,7 +741,7 @@ typedef struct
 		} sensorreadingbpt;
 
 		Picosec	globaltime;
-	};	
+	};
 } Breakpoint;
 
 struct Engine
@@ -754,6 +757,7 @@ struct Engine
 	/*				Decode caches			*/
 	SuperHDCEntry	superHDC[1<<16];
 	MSP430DCEntry	msp430DC[1<<16];
+  ARMDCEntry armDC[1<<16];
 
 
 	/*		Do not spawn new thread on 'ON' command		*/
@@ -773,7 +777,7 @@ struct Engine
 	int		nrandtabs;
 	Picosec		rvarsnextpsec;
 	Rvar*		rvars[MAX_RVARENTRIES];
-	int		validrvars[MAX_RVARENTRIES];	
+	int		validrvars[MAX_RVARENTRIES];
 	int		nvalidrvars;
 	int		randsched[MAX_SIMNODES];
 
@@ -870,4 +874,3 @@ struct Engine
 
 	char		*logfilename;
 };
-
