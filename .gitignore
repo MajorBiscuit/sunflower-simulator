@@ -6,10 +6,11 @@ sunflower.out
 #	Binaries
 #
 *.o
-#*.a
+*.a
 *.sr
 *.map
 init.i
+sf
 
 #
 #	Built cross compiler binaries
@@ -21,3 +22,15 @@ tools/superH
 #	Downloaded sources
 #
 tools/source/*
+
+#
+#       Tags
+#
+sim/GPATH
+sim/GRTAGS
+sim/GTAGS
+#
+#       WIP
+#
+sim/arm/
+

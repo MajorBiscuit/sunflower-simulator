@@ -1,9 +1,9 @@
 /*
 	Copyright (c) 1999-2008, Phillip Stanley-Marbell (author)
- 
+
 	All rights reserved.
 
-	Redistribution and use in source and binary forms, with or without 
+	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions
 	are met:
 
@@ -18,20 +18,20 @@
 
 	*	Neither the name of the author nor the names of its
 		contributors may be used to endorse or promote products
-		derived from this software without specific prior written 
+		derived from this software without specific prior written
 		permission.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 	LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
 	COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 	INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+	BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+	LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
-	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 	POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -83,8 +83,8 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->cycles = 1;
 							stage->fptr = (void *)superH_stcsr;
 							stage->op = OP_STCSR;
-		
-							break;						
+
+							break;
 						}
 						case B0001:
 						{
@@ -93,7 +93,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcgbr;
 							stage->op = OP_STCGBR;
 
-							break;						
+							break;
 						}
 
 						case B0010:
@@ -103,7 +103,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcvbr;
 							stage->op = OP_STCVBR;
 
-							break;						
+							break;
 						}
 
 						case B0011:
@@ -113,7 +113,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcssr;
 							stage->op = OP_STCSSR;
 
-							break;						
+							break;
 						}
 
 						case B0100:
@@ -123,7 +123,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcspc;
 							stage->op = OP_STCSPC;
 
-							break;						
+							break;
 						}
 
 						case B1000:
@@ -133,7 +133,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 
 						case B1001:
@@ -143,7 +143,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 
 						case B1010:
@@ -153,7 +153,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 
 						case B1011:
@@ -163,7 +163,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 
 						case B1100:
@@ -173,7 +173,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 
 						case B1101:
@@ -183,7 +183,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 
 						case B1110:
@@ -193,7 +193,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 
 						case B1111:
@@ -203,7 +203,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 							stage->fptr = (void *)superH_stcr_bank;
 							stage->op = OP_STCRBANK;
 
-							break;						
+							break;
 						}
 					}
 					break;
@@ -245,7 +245,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 
 					break;
 				}
-				
+
 				case B0100:
 				{
 					stage->format = INSTR_NM;
@@ -255,7 +255,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 
 					break;
 				}
-				
+
 				case B0101:
 				{
 					stage->format = INSTR_NM;
@@ -385,7 +385,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 					break;
 				}
 
-		
+
 				case B1011:
 				{
 					switch (tmp->nibble_2)
@@ -1134,7 +1134,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 
 							break;
 						}
-			
+
 						case B0010:
 						{
 							stage->format = INSTR_N;
@@ -1480,7 +1480,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 
 					break;
 				}
-				
+
 				case B1101:
 				{
 					stage->format = INSTR_NM;
@@ -1490,7 +1490,7 @@ superHdecode(Engine *E, ushort instr, SuperHPipestage *stage)
 
 					break;
 				}
-						
+
 				case B1110:
 				{
 					switch (tmp->nibble_2)

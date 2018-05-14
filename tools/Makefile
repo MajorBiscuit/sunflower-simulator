@@ -34,7 +34,7 @@ g++-pre:
 	if test -d $(TOOLS)/$(TARGET); then true; else mkdir $(TOOLS)/$(TARGET); fi;\
 	cd $(GCC);\
 	$(DEL) objdir; mkdir -p objdir; cd objdir;\
-	export CFLAGS='-O2 -fbracket-depth' CXXFLAGS='-O2 -fbracket-depth' MAKEINFO=missing && ../configure --disable-docs --target=$(TARGET-ARCH) --host=$(HOST) --prefix=$(PREFIX)\
+	export CFLAGS='-O2 ' CXXFLAGS='-O2 ' MAKEINFO=missing && ../configure --disable-docs --target=$(TARGET-ARCH) --host=$(HOST) --prefix=$(PREFIX)\
 		--disable-libssp --with-gnu-as --with-gnu-ld --with-newlib\
 		--enable-languages="c,c++"\
 		--with-headers=$(NEWLIB)/newlib/libc/include -v;\
@@ -46,11 +46,11 @@ gcc-pre:
 	if test -d $(TOOLS)/$(TARGET); then true; else mkdir $(TOOLS)/$(TARGET); fi;\
 	cd $(GCC);\
 	$(DEL) objdir; mkdir -p objdir; cd objdir;\
-	export CFLAGS='-O2 -fbracket-depth' CXXFLAGS='-O2 -fbracket-depth' MAKEINFO=missing && ../configure --disable-docs --target=$(TARGET-ARCH) --host=$(HOST) --prefix=$(PREFIX)\
+	export CFLAGS='-O2 ' CXXFLAGS='-O2 ' MAKEINFO=missing && ../configure --disable-docs --target=$(TARGET-ARCH) --host=$(HOST) --prefix=$(PREFIX)\
 		--disable-libssp --with-gnu-as --with-gnu-ld --with-newlib\
 		--enable-languages=c\
 		--with-headers=$(NEWLIB)/newlib/libc/include -v;\
-	$(MAKE) CC=$(TOOLCC) CFLAGS="-fgnu89-inline -ansi" all-gcc;\	# CXX=$(TOOLCXX) CFLAGS="-ansi";\ 
+	$(MAKE) CC=$(TOOLCC) CFLAGS="-fgnu89-inline -ansi -D_XOPEN_SOURCE=600" all-gcc;\	# CXX=$(TOOLCXX) CFLAGS="-ansi";\ 
 	$(MAKE) CC=$(TOOLCC) install;\					# CXX=$(TOOLCXX) AR=ar install;\
 
 
