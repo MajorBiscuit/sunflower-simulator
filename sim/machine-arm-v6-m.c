@@ -1,4 +1,5 @@
 /*
+  Copyright (c) 1999-2008, Phillip Stanley-Marbell (author)
 	Copyright (c) 2018, Andreas Theodosiou and Kyriacos Bagdates (author)
 
 	All rights reserved.
