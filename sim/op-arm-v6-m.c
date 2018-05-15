@@ -276,10 +276,10 @@ void arm_asri(Engine *E, State *S, ulong d, ulong m, ulong imm)
     Rm_shifted = Rm_shifted | one_mask;
   }
   reg_set(E, S, d, Rm_shifted);
-  if (result & (1 << 31))
+  if (Rm_shifted & (1 << 31))
     n = 1;
   S->arm->SR.N = n;
-  S->arm->SR.Z = (result == 0);
+  S->arm->SR.Z = (Rm_shifted == 0);
   /* the carry bit is the last bit to be shifted to the right */
   ulong c_mask = 1 << shift;
   unsigned carry = ((Rm & c_mask) != 0);
