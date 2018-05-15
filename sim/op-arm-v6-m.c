@@ -271,7 +271,7 @@ void arm_asri(Engine *E, State *S, ulong d, ulong m, ulong imm)
         one_mask += 1 << i;
       }
     /* set the bits that represent the sign, reset the bits that hold the shifted value */
-    ulong one_mask = 0xFFFFFFFF - one_mask;
+    one_mask = 0xFFFFFFFF - one_mask;
     Rm_shifted = Rm >> shift;
     Rm_shifted = Rm_shifted | one_mask;
   }
