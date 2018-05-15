@@ -566,7 +566,7 @@ ARMstep(Engine *E, State *S, int drain_pipeline)
             case OP_ASRI:
             case OP_LSLI:
             case OP_LSRI:
-              (*(S->arm->P.EX.fptr))(E, S, tmp->dst, tmp->operand_a, tmp->operand_b + (tmp->operand_c << 2) + (tmp->operand_c << 3));
+              (*(S->arm->P.EX.fptr))(E, S, tmp->dst, tmp->operand_a, tmp->operand_b + (tmp->operand_c << 2) + (tmp->func_b << 3));
             case OP_MOVI:
             case OP_CMPI:
               (*(S->arm->P.EX.fptr))(E, S, tmp->operand_c + (tmp->func_b << 2), tmp->dst + (tmp->operand_a << 3) + (tmp->operand_b << 6));
